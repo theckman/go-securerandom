@@ -1,3 +1,23 @@
+// Copyright 2016 Tim Heckman. All rights reserved.
+// Use of this source code is governed by the BSD 3-Clause
+// license that can be found in the LICENSE file.
+
+// Package randomizer is a set of utilities for generating random data from the
+// "crypto/rand" package. The package has the ability to generate bytes from
+// secure-random data, as well as other data from those bytes. That includes
+// numbers and Base64-encoded strings.
+//
+// Example:
+//
+//		import github.com/theckman/randomizer
+//
+// 		ru64, err := randomizer.GenerateRandomUint64()
+//
+// 		// secure-random data is unavailable
+// 		if err != nil {
+// 			// handle err
+// 		}
+// 		fmt.Println("random value %d\n", ru64)
 package randomizer
 
 import (
@@ -31,10 +51,10 @@ func GenerateRandomBase64(max int) (string, error) {
 	return base64.StdEncoding.EncodeToString(b), err
 }
 
-// GenerateRandomBase64URLEncoding is a function that returns a randomize standard Base64
+// GenerateRandomBase64URL is a function that returns a random URL encoded Base64
 // string. This does not use the URL encoding. It takes a single parameter that
 // is the maximum possible length of the string, it will get as close as possible.
-func GenerateRandomBase64URLEncoding(max int) (string, error) {
+func GenerateRandomBase64URL(max int) (string, error) {
 	b, err := GenerateRandomBytes(maximumBytes(max))
 	return base64.URLEncoding.EncodeToString(b), err
 }

@@ -1,3 +1,7 @@
+// Copyright 2016 Tim Heckman. All rights reserved.
+// Use of this source code is governed by the BSD 3-Clause
+// license that can be found in the LICENSE file.
+
 package randomizer_test
 
 import (
@@ -54,11 +58,11 @@ func (*TestSuite) TestGenerateRandomBase64(c *C) {
 	c.Check(len(s), Equals, 32)
 }
 
-func (*TestSuite) TestGenerateRandomBase64URLEncoding(c *C) {
+func (*TestSuite) TestGenerateRandomBase64URL(c *C) {
 	var s string
 	var err error
 
-	s, err = randomizer.GenerateRandomBase64URLEncoding(32)
+	s, err = randomizer.GenerateRandomBase64URL(32)
 	c.Assert(err, IsNil)
 	c.Check(len(s), Equals, 32)
 }
@@ -71,10 +75,10 @@ func (t *TestSuite) BenchmarkGenerateRandomBase64(c *C) {
 	}
 }
 
-func (t *TestSuite) BenchmarkGenerateRandomBase64URLEncoding(c *C) {
+func (t *TestSuite) BenchmarkGenerateRandomBase64URL(c *C) {
 	var s string
 	for i := 0; i < c.N; i++ {
-		s, _ = randomizer.GenerateRandomBase64URLEncoding(16)
+		s, _ = randomizer.GenerateRandomBase64URL(16)
 		c.SetBytes(int64(len(s)))
 	}
 }
