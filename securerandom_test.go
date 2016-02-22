@@ -5,6 +5,7 @@
 package securerandom_test
 
 import (
+	mrand "math/rand"
 	"testing"
 
 	"github.com/theckman/go-securerandom"
@@ -17,6 +18,11 @@ type TestSuite struct{}
 var _ = Suite(&TestSuite{})
 
 func Test(t *testing.T) { TestingT(t) }
+
+// noop is a function so that we can assert the type of a value
+// returned from a function without causing the compiler to complain
+// because we aren't using the variable in a meaningful way
+func noop(interface{}) {}
 
 func (*TestSuite) TestBytes(c *C) {
 	// I have no fucking idea how to test this shit...
@@ -89,8 +95,6 @@ func (t *TestSuite) BenchmarkURLBase64(c *C) {
 		c.SetBytes(int64(len(s)))
 	}
 }
-
-func noop(interface{}) {}
 
 func (t *TestSuite) TestUint16(c *C) {
 	var u16 uint16
@@ -185,5 +189,20 @@ func (t *TestSuite) BenchmarkInt64(c *C) {
 	for i := 0; i < c.N; i++ {
 		securerandom.Uint64()
 		c.SetBytes(8)
+	}
+}
+
+func (*TestSuite) TestRandSource(c *C) {
+	var src mrand.Source
+	var err error
+
+	src, err = securerandom.RandSource()
+	c.Assert(err, IsNil)
+	noop(src)
+}
+
+func (*TestSuite) BenchmarkRandSource(c *C) {
+	for i := 0; i < c.N; i++ {
+		securerandom.RandSource()
 	}
 }
