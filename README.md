@@ -13,14 +13,17 @@ go get -u github.com/theckman/go-randomizer
 Full usage information can be found on the [GoDoc](https://godoc.org/github.com/theckman/go-randomizer) page, but here is a short example:
 
 ```Go
-import github.com/theckman/randomizer
+import (
+	"math/rand"
+	"github.com/theckman/randomizer"
+)
 
-ru64, err := randomizer.GenerateRandomUint64()
+ri64, err := randomizer.GenerateRandomInt64()
 
 // secure-random data is unavailable
 if err != nil {
 	// handle err
 }
 
-fmt.Println("random value %d\n", ru64)
+rand.Seed(ri64)
 ```

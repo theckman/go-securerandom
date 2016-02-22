@@ -35,17 +35,24 @@ func (t *TestSuite) BenchmarkGenerateRandomBytesBy1(c *C) {
 	}
 }
 
+func (t *TestSuite) BenchmarkGenerateRandomBytesBy16(c *C) {
+	for i := 0; i < c.N; i++ {
+		randomizer.GenerateRandomBytes(16)
+		c.SetBytes(16)
+	}
+}
+
+func (t *TestSuite) BenchmarkGenerateRandomBytesBy32(c *C) {
+	for i := 0; i < c.N; i++ {
+		randomizer.GenerateRandomBytes(32)
+		c.SetBytes(32)
+	}
+}
+
 func (t *TestSuite) BenchmarkGenerateRandomBytesBy64(c *C) {
 	for i := 0; i < c.N; i++ {
 		randomizer.GenerateRandomBytes(64)
 		c.SetBytes(64)
-	}
-}
-
-func (t *TestSuite) BenchmarkGenerateRandomBytesBy128(c *C) {
-	for i := 0; i < c.N; i++ {
-		randomizer.GenerateRandomBytes(128)
-		c.SetBytes(128)
 	}
 }
 
@@ -98,6 +105,27 @@ func (t *TestSuite) BenchmarkGenerateRandomUint32(c *C) {
 }
 
 func (t *TestSuite) BenchmarkGenerateRandomUint64(c *C) {
+	for i := 0; i < c.N; i++ {
+		randomizer.GenerateRandomUint64()
+		c.SetBytes(8)
+	}
+}
+
+func (t *TestSuite) BenchmarkGenerateRandomInt16(c *C) {
+	for i := 0; i < c.N; i++ {
+		randomizer.GenerateRandomInt16()
+		c.SetBytes(2)
+	}
+}
+
+func (t *TestSuite) BenchmarkGenerateRandomInt32(c *C) {
+	for i := 0; i < c.N; i++ {
+		randomizer.GenerateRandomInt32()
+		c.SetBytes(4)
+	}
+}
+
+func (t *TestSuite) BenchmarkGenerateRandomInt64(c *C) {
 	for i := 0; i < c.N; i++ {
 		randomizer.GenerateRandomUint64()
 		c.SetBytes(8)
