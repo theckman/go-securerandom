@@ -17,10 +17,24 @@
 // 		ri64, err := securerandom.Int64()
 //
 // 		// secure-random data is unavailable
-// 		if err != nil {
-// 			// handle err
-// 		}
+// 		if err != nil { /* handle err */ }
+//
 //		rand.Seed(ri64)
+//
+// You can also generate random base64 encoded strings from this package:
+//
+//		// generate string from 32 random bytes
+//		rStr, err := securerandom.Base64OfBytes(32)
+//
+//		// secure-random data is unavailable
+//		if err != nil { /* handle err */ }
+//
+// 		fmt.Println(rStr)
+//
+//		// assume your random string can only be 32 bytes long
+//		rStr, _ = securerandom.Base64InBytes(32)
+//
+// 		fmt.Println(rStr) // would print Base64 string with a length of 32
 package securerandom
 
 import (
@@ -28,6 +42,9 @@ import (
 	"encoding/base64"
 	mrand "math/rand"
 )
+
+// PackageVersion is the semantic version number of this package.
+const PackageVersion = "0.1.0"
 
 // Bytes is a function that takes an integer and returns
 // a slice of that length containing random bytes.
@@ -47,19 +64,35 @@ func maximumBytes(size int) int {
 	return int((float64(size) / 4) * 3)
 }
 
-// Base64 is a function that returns a randomize standard Base64
+// Base64InBytes is a function that returns a randomized standard Base64
 // string. This does not use the URL encoding. It takes a single parameter that
 // is the maximum possible length of the string, it will get as close as possible.
-func Base64(max int) (string, error) {
+func Base64InBytes(max int) (string, error) {
 	b, err := Bytes(maximumBytes(max))
 	return base64.StdEncoding.EncodeToString(b), err
 }
 
-// URLBase64 is a function that returns a random URL encoded Base64
+// URLBase64InBytes is a function that returns a random URL encoded Base64
 // string. This does not use the URL encoding. It takes a single parameter that
 // is the maximum possible length of the string, it will get as close as possible.
-func URLBase64(max int) (string, error) {
+func URLBase64InBytes(max int) (string, error) {
 	b, err := Bytes(maximumBytes(max))
+	return base64.URLEncoding.EncodeToString(b), err
+}
+
+// Base64OfBytes is a function that returns a randomized standard Base64
+// string. This does not use the URL encoding. It takes a single parameter that
+// is the number of bytes to used to generate the value.
+func Base64OfBytes(n int) (string, error) {
+	b, err := Bytes(n)
+	return base64.StdEncoding.EncodeToString(b), err
+}
+
+// URLBase64OfBytes is a function that returns a random URL encoded Base64
+// string. This is using URL encoding. It takes a single parameter that
+// is the number of bytes to use to generate the value.
+func URLBase64OfBytes(n int) (string, error) {
+	b, err := Bytes(n)
 	return base64.URLEncoding.EncodeToString(b), err
 }
 
