@@ -5,7 +5,7 @@
 package securerandom_test
 
 import (
-	mrand "math/rand"
+	"math/rand"
 	"testing"
 
 	"github.com/theckman/go-securerandom"
@@ -227,7 +227,7 @@ func (t *TestSuite) BenchmarkInt64(c *C) {
 }
 
 func (*TestSuite) TestRandSource(c *C) {
-	var src mrand.Source
+	var src rand.Source
 	var err error
 
 	src, err = securerandom.RandSource()
