@@ -44,7 +44,7 @@ import (
 )
 
 // PackageVersion is the semantic version number of this package.
-const PackageVersion = "0.1.0"
+const PackageVersion = "0.1.1"
 
 // Bytes is a function that takes an integer and returns
 // a slice of that length containing random bytes.
