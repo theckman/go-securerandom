@@ -40,7 +40,7 @@ package securerandom
 import (
 	crand "crypto/rand"
 	"encoding/base64"
-	mrand "math/rand"
+	"math/rand"
 )
 
 // PackageVersion is the semantic version number of this package.
@@ -219,12 +219,12 @@ func Int64() (int64, error) {
 // RandSource is a function that returns a Source from the "math/rand" package
 // to be used to create a new pseudorandom generator. If this returns err != nil
 // the value of the source is not suitable for use.
-func RandSource() (mrand.Source, error) {
+func RandSource() (rand.Source, error) {
 	randInt64, err := Int64()
 
 	if err != nil {
 		return nil, err
 	}
 
-	return mrand.NewSource(randInt64), nil
+	return rand.NewSource(randInt64), nil
 }
