@@ -62,36 +62,70 @@ func (t *TestSuite) BenchmarkBytesBy64(c *C) {
 	}
 }
 
-func (*TestSuite) TestBase64(c *C) {
+func (*TestSuite) TestBase64InBytes(c *C) {
 	var s string
 	var err error
 
-	s, err = securerandom.Base64(32)
+	s, err = securerandom.Base64InBytes(32)
 	c.Assert(err, IsNil)
 	c.Check(len(s), Equals, 32)
 }
 
-func (t *TestSuite) BenchmarkBase64(c *C) {
+func (t *TestSuite) BenchmarkBase64InBytes(c *C) {
 	var s string
 	for i := 0; i < c.N; i++ {
-		s, _ = securerandom.Base64(16)
+		s, _ = securerandom.Base64InBytes(16)
 		c.SetBytes(int64(len(s)))
 	}
 }
 
-func (*TestSuite) TestURLBase64(c *C) {
+func (*TestSuite) TestURLBase64InBytes(c *C) {
 	var s string
 	var err error
 
-	s, err = securerandom.URLBase64(32)
+	s, err = securerandom.URLBase64InBytes(32)
 	c.Assert(err, IsNil)
 	c.Check(len(s), Equals, 32)
 }
 
-func (t *TestSuite) BenchmarkURLBase64(c *C) {
+func (t *TestSuite) BenchmarkURLBase64In(c *C) {
 	var s string
 	for i := 0; i < c.N; i++ {
-		s, _ = securerandom.URLBase64(16)
+		s, _ = securerandom.URLBase64InBytes(16)
+		c.SetBytes(int64(len(s)))
+	}
+}
+
+func (*TestSuite) TestBase64OfBytes(c *C) {
+	var s string
+	var err error
+
+	s, err = securerandom.Base64OfBytes(32)
+	c.Assert(err, IsNil)
+	c.Check(len(s), Equals, 44)
+}
+
+func (t *TestSuite) BenchmarkBase64OfBytes(c *C) {
+	var s string
+	for i := 0; i < c.N; i++ {
+		s, _ = securerandom.Base64OfBytes(16)
+		c.SetBytes(int64(len(s)))
+	}
+}
+
+func (*TestSuite) TestURLBase64OfBytes(c *C) {
+	var s string
+	var err error
+
+	s, err = securerandom.URLBase64OfBytes(32)
+	c.Assert(err, IsNil)
+	c.Check(len(s), Equals, 44)
+}
+
+func (t *TestSuite) BenchmarkURLBase64OfBytes(c *C) {
+	var s string
+	for i := 0; i < c.N; i++ {
+		s, _ = securerandom.URLBase64OfBytes(16)
 		c.SetBytes(int64(len(s)))
 	}
 }

@@ -14,6 +14,7 @@ Full usage information can be found on the [GoDoc](https://godoc.org/github.com/
 
 ```Go
 import (
+	"fmt"
 	"math/rand"
 	"github.com/theckman/go-securerandom"
 )
@@ -26,4 +27,21 @@ if err != nil {
 }
 
 rand.Seed(ri64)
+```
+
+You can also generate random base64 encoded strings from this package:
+
+```Go
+// generate string from 32 random bytes
+rStr, err := securerandom.Base64OfBytes(32)
+
+// secure-random data is unavailable
+if err != nil { /* handle err */ }
+
+fmt.Println(rStr)
+
+// assume your random string can only be 32 bytes long
+rStr, _ = securerandom.Base64InBytes(32)
+
+fmt.Println(rStr) // would print Base64 string with a length of 32
 ```
